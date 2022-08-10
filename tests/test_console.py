@@ -237,7 +237,7 @@ class TestHBNBCommand(unittest.TestCase):
         with patch("sys.stdout", new=StringIO()) as f:
             self.HBNB.onecmd("all User")
             obj = f.getvalue()
-        my_id = obj[obj.find('(')+1:obj.find(')')]
+        my_id = obj[obj.find('(') + 1:obj.find(')')]
         with patch("sys.stdout", new=StringIO()) as f:
             self.HBNB.onecmd("update User " + my_id)
             self.assertEqual(
@@ -307,7 +307,7 @@ class TestHBNBCommand(unittest.TestCase):
         with patch('sys.stdout', new=StringIO()) as f:
             self.HBNB.onecmd("all User")
             obj = f.getvalue()
-        my_id = obj[obj.find('(')+1:obj.find(')')]
+        my_id = obj[obj.find('(') + 1:obj.find(')')]
         with patch('sys.stdout', new=StringIO()) as f:
             self.HBNB.onecmd("User.update(" + my_id + ")")
             self.assertEqual(
