@@ -1,38 +1,50 @@
 #!/usr/bin/python3
-from flask import Flask, render_template
+"""
+    setup 5 routes and start the app
+"""
+from flask import Flask
+from flask import render_template
 app = Flask(__name__)
-app.url_map.strict_slashes = False
 
 
-@app.route('/')
-def hello_route():
-    return "Hello HBNB!"
+@app.route('/', strict_slashes=False)
+def hello_hbnb():
+    """simple route"""
+    return 'Hello HBNB!'
 
 
-@app.route('/hbnb')
-def hbnb_route():
-    return "HBNB"
+@app.route('/hbnb', strict_slashes=False)
+def hbnb():
+    """ /hbnb route """
+    return 'HBNB'
 
 
-@app.route('/c/<text>')
+@app.route('/c/<text>', strict_slashes=False)
 def c_route(text):
-    return "C {:s}".format(text).replace("_", " ")
+    """ /c route """
+    tmp = text.replace('_', ' ')
+    return 'C {}'.format(tmp)
 
 
-@app.route('/python/', defaults={'text': "is cool"})
-@app.route('/python/<text>')
+@app.route('/python/', defaults={'text': 'is cool'}, strict_slashes=False)
+@app.route('/python/<text>', strict_slashes=False)
 def python_route(text):
-    return "Python {:s}".format(text).replace("_", " ")
+    """ /python and optional param """
+    tmp = text.replace('_', ' ')
+    return 'Python {}'.format(tmp)
 
 
-@app.route('/number/<int:n>')
+@app.route('/number/<int:n>', strict_slashes=False)
 def number_route(n):
-    return "{:d} is a number".format(n)
+    """ /number route """
+    return '{:d} is a number'.format(n)
 
 
-@app.route('/number_template/<int:n>')
+@app.route('/number_template/<int:n>', strict_slashes=False)
 def number_template_route(n):
-    return render_template('5_number_template.html', n=n)
+    """ /number_template route """
+    return render_template('5-number.html', n=n)
 
-if __name__ == "__main__":
-    app.run(port=5000, host='0.0.0.0')
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000, debug=True)
