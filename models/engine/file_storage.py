@@ -21,10 +21,7 @@ class FileStorage:
     __objects = {}
 
     def all(self, cls=None):
-        """returns a dictionary, and if cls is given, return all objects of that
-        class type in a list.
-        Return:
-            returns a dictionary of __object
+        """Returns dictionary, return all obj type as list.
         """
         if cls is None:
             return self.__objects
@@ -75,9 +72,9 @@ class FileStorage:
                 key = obj.__class__.__name__ + "." + str(obj.id)
                 del self.__objects[key]
                 self.save()
-            except:
+            exception:
                 pass
 
     def close(self):
-        """ calls reload after deserializing the JSON file to objects """
+        """calls reload after deserializing the JSON file to obj"""
         self.reload()
