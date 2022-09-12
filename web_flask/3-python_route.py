@@ -1,21 +1,17 @@
 #!/usr/bin/python3
-"""
-    setup 4 routes and start the app
-"""
 from flask import Flask
 app = Flask(__name__)
+app.url_map.strict_slashes = False
 
 
-@app.route('/', strict_slashes=False)
-def hello_hbnb():
-    """simple route"""
-    return 'Hello HBNB!'
+@app.route('/')
+def hello_route():
+    return "Hello HBNB!"
 
 
-@app.route('/hbnb', strict_slashes=False)
-def hbnb():
-    """ /hbnb route """
-    return 'HBNB'
+@app.route('/hbnb')
+def hbnb_route():
+    return "HBNB"
 
 
 @app.route('/c/<text>', strict_slashes=False)
