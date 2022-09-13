@@ -1,32 +1,36 @@
 #!/usr/bin/python3
-"""Routers and Controllers"""
-from flask import Flask, render_template
+"""
+    routes for the project
+"""
+from flask import Flask
+from flask import render_template
 from models import storage
+from models.state import State
+import os
 app = Flask(__name__)
-app.url_map.strict_slashes = False
 
 
 @app.teardown_appcontext
-def tearDown(self):
+def teardown_db(exception):
+    """after each request"""
     storage.close()
 
 
-@app.route('/states')
-def list_states_route():
-    states = storage.all("State").values()
+@app.route('/states', strict_slashes=False)
+def get_all_states_route():
+    """ get all states and give to the template"""
+    states = storage.all(State).values()
     return render_template('9-states.html', states=states)
 
 
-@app.route('/states/<id>')
-def list_state(id):
-    """ Grab a state by its id and pass it to the html """
-    states = storage.all("State").values()
-    for state in states:
-        if state.id == id:
-            return render_template('9-states.html', state=state)
-    """ No state pass in None to html """
+@app.route('/states/<id>', strict_slashes=False)
+def get_states_by_id_route(id):
+    """ get all states by id and give to the template"""
+    states = storage.all(State)
+    for k, v in states.items():
+        if v.id == id:
+            return render_template('9-states.html', state=v)
     return render_template('9-states.html', state=None)
 
-
-if __name__ == "__main__":
-    app.run(port=5000, host='0.0.0.0')
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
